@@ -37,7 +37,7 @@ const PRODUCTS = [
 
 class ProductCategoryRow extends Component {
   render() {
-    const bold_flex = 'row product_category';
+    const bold_flex = 'product_category';
     const SPORTINGGOODS = PRODUCTS.filter(
       item => item.category === 'Sporting Goods'
     );
@@ -57,7 +57,10 @@ class ProductCategoryRow extends Component {
         <div className="product_category">Sporting Goods</div>
         {SPORTINGGOODS.map((item, i) => (
           <li key={i}>
-            <span style={item.stocked === false ? outOfStock : null}>
+            <span
+              style={item.stocked === false ? outOfStock : null}
+              onClick={this.handleClick}
+            >
               {item.name}
             </span>
             <span className="price_col">{item.price}</span>
@@ -105,8 +108,14 @@ class SearchBar extends Component {
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     this.state = { stocked: false };
   }
+
+  handleClick() {
+    this.setState();
+  }
+
   render() {
     return (
       <div className="main">
