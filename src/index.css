@@ -5,7 +5,7 @@ body {
 
 p {
     font-size: 0.85em;
-    margin: 0.2em 0 1em -0.2em;
+    margin: 0.2em 0 0.8em -0.2em;
 }
 
 p>input {
@@ -29,7 +29,7 @@ p>input {
 
 .price_col {
     position: absolute;
-    left: 5.9em;
+    left: 5.8em;
     text-align: left;
 }
 

@@ -36,10 +36,6 @@ const PRODUCTS = [
 ];
 
 class ProductCategoryRow extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { stocked: false };
-  }
   render() {
     const bold_flex = 'row product_category';
     const SPORTINGGOODS = PRODUCTS.filter(
@@ -107,6 +103,10 @@ class SearchBar extends Component {
 }
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { stocked: false };
+  }
   render() {
     return (
       <div className="main">
