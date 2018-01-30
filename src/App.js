@@ -56,6 +56,18 @@ class ProductCategoryRow extends Component {
       color: 'red'
     };
 
+    function renderRow(productType) {
+      return productType.map(
+        (item, i) =>
+          item.stocked ? (
+            <li key={i}>
+              <span style={!item.stocked ? outOfStock : null}>{item.name}</span>
+              <span className="price_col">{item.price}</span>
+            </li>
+          ) : null
+      );
+    }
+
     return (
       <div>
         <div className="product_category">
@@ -63,29 +75,9 @@ class ProductCategoryRow extends Component {
           <span className="price_col">Price</span>
         </div>
         <div className="product_category">Sporting Goods</div>
-        {SPORTINGGOODS.map(
-          (item, i) =>
-            item.stocked === true ? (
-              <li key={i}>
-                <span
-                  style={item.stocked === false ? outOfStock : null}
-                  onClick={this.handleClick}
-                >
-                  {item.name}
-                </span>
-                <span className="price_col">{item.price}</span>
-              </li>
-            ) : null
-        )}
+        {renderRow(SPORTINGGOODS)}
         <div className="product_category">Electronics</div>
-        {ELECTRONICS.map((item, i) => (
-          <li key={i}>
-            <span style={item.stocked === false ? outOfStock : null}>
-              {item.name}
-            </span>
-            <span className="price_col">{item.price}</span>
-          </li>
-        ))}
+        {renderRow(ELECTRONICS)}
       </div>
     );
   }
