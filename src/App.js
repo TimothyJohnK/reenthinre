@@ -32,12 +32,20 @@ const PRODUCTS = [
     stocked: false,
     name: 'iPhone 5'
   },
-  { category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7' }
+  {
+    category: 'Electronics',
+    price: '$199.99',
+    stocked: true,
+    name: 'Nexus 7'
+  }
 ];
 
 class ProductCategoryRow extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { checked: null };
+  }
   render() {
-    const bold_flex = 'product_category';
     const SPORTINGGOODS = PRODUCTS.filter(
       item => item.category === 'Sporting Goods'
     );
@@ -50,22 +58,25 @@ class ProductCategoryRow extends Component {
 
     return (
       <div>
-        <div className={bold_flex}>
+        <div className="product_category">
           <span>Name</span>
           <span className="price_col">Price</span>
         </div>
         <div className="product_category">Sporting Goods</div>
-        {SPORTINGGOODS.map((item, i) => (
-          <li key={i}>
-            <span
-              style={item.stocked === false ? outOfStock : null}
-              onClick={this.handleClick}
-            >
-              {item.name}
-            </span>
-            <span className="price_col">{item.price}</span>
-          </li>
-        ))}
+        {SPORTINGGOODS.map(
+          (item, i) =>
+            item.stocked === true ? (
+              <li key={i}>
+                <span
+                  style={item.stocked === false ? outOfStock : null}
+                  onClick={this.handleClick}
+                >
+                  {item.name}
+                </span>
+                <span className="price_col">{item.price}</span>
+              </li>
+            ) : null
+        )}
         <div className="product_category">Electronics</div>
         {ELECTRONICS.map((item, i) => (
           <li key={i}>
@@ -79,8 +90,6 @@ class ProductCategoryRow extends Component {
     );
   }
 }
-
-// class ProductRow extends Component {}
 
 class ProductTable extends Component {
   render() {
@@ -98,7 +107,7 @@ class SearchBar extends Component {
       <form>
         <input type="text" placeholder="Search..." />
         <p>
-          <input type="checkbox" /> Only show products in stock
+          <input type="checkbox" checked={null} /> Only show products in stock
         </p>
       </form>
     );
@@ -109,13 +118,11 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.state = { stocked: false };
+    this.state = { stocked: false, checked: false };
   }
-
   handleClick() {
-    this.setState();
+    this.setState({ stocked: true });
   }
-
   render() {
     return (
       <div className="main">
