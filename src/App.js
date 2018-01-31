@@ -40,7 +40,7 @@ const PRODUCTS = [
   }
 ];
 
-class ProductCategoryRow extends Component {
+class ProductTable extends Component {
   constructor(props) {
     super(props);
     this.state = { checked: null };
@@ -83,23 +83,18 @@ class ProductCategoryRow extends Component {
   }
 }
 
-class ProductTable extends Component {
-  render() {
-    return (
-      <div className="product_table">
-        <ProductCategoryRow />
-      </div>
-    );
-  }
-}
-
 class SearchBar extends Component {
   render() {
     return (
       <form>
         <input type="text" placeholder="Search..." />
         <p>
-          <input type="checkbox" checked={null} onClick={this.handleClick} />
+          <input
+            type="checkbox"
+            checked={null}
+            // checked={this.state.value}
+            onClick={() => this.handleClick()}
+          />
           Only show products in stock
         </p>
       </form>
@@ -110,17 +105,22 @@ class SearchBar extends Component {
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     this.state = { value: null };
   }
   handleClick() {
-    this.setState({ value: true });
+    if (this.state.value === false) {
+      return;
+      this.setState({ value: true });
+    }
+    if (this.state.value === true) {
+      return this.setState({ value: false });
+    }
   }
 
   render() {
     return (
       <div className="main">
-        <SearchBar onClick={this.handleClick} />
+        <SearchBar onClick={this.handleClick.bind(this)} />
         <ProductTable isStocked={this.state.value} />
       </div>
     );
