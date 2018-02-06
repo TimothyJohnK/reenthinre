@@ -57,26 +57,15 @@ class ProductTable extends Component {
     };
 
     function renderRow(productType) {
-      if (this.state.checked === true) {
-        return productType.map(
-          (item, i) =>
-            item.stocked ? (
-              <li key={i}>
-                <span style={!item.stocked ? outOfStock : null}>
-                  {item.name}
-                </span>
-                <span className="price_col">{item.price}</span>
-              </li>
-            ) : null
-        );
-      } else {
-        return productType.map((item, i) => (
-          <li key={i}>
-            <span style={!item.stocked ? outOfStock : null}>{item.name}</span>
-            <span className="price_col">{item.price}</span>
-          </li>
-        ));
-      }
+      return productType.map(
+        (item, i) =>
+          item.stocked ? (
+            <li key={i}>
+              <span style={!item.stocked ? outOfStock : null}>{item.name}</span>
+              <span className="price_col">{item.price}</span>
+            </li>
+          ) : null
+      );
     }
 
     return (
