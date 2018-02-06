@@ -57,15 +57,26 @@ class ProductTable extends Component {
     };
 
     function renderRow(productType) {
-      return productType.map(
-        (item, i) =>
-          item.stocked ? (
-            <li key={i}>
-              <span style={!item.stocked ? outOfStock : null}>{item.name}</span>
-              <span className="price_col">{item.price}</span>
-            </li>
-          ) : null
-      );
+      if (this.state.checked === true) {
+        return productType.map(
+          (item, i) =>
+            item.stocked ? (
+              <li key={i}>
+                <span style={!item.stocked ? outOfStock : null}>
+                  {item.name}
+                </span>
+                <span className="price_col">{item.price}</span>
+              </li>
+            ) : null
+        );
+      } else {
+        return productType.map((item, i) => (
+          <li key={i}>
+            <span style={!item.stocked ? outOfStock : null}>{item.name}</span>
+            <span className="price_col">{item.price}</span>
+          </li>
+        ));
+      }
     }
 
     return (
@@ -108,11 +119,11 @@ export default class App extends Component {
     this.state = { value: null };
   }
   handleClick() {
-    if (this.state.value === false) {
+    if (!this.state.value) {
       return;
       this.setState({ value: true });
     }
-    if (this.state.value === true) {
+    if (this.state.value) {
       return this.setState({ value: false });
     }
   }
