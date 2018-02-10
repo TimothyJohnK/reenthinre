@@ -61,10 +61,11 @@ class ProductTable extends Component {
       ));
     }
 
+    // Tried conditionals in both of these functions to no avail.  Would also like
+    // to not repeat the PRODUCTS.filter.  HOwDO.optimize?
+
     function renderStocked(productType) {
-      const filteredProducts = productType.filter(
-        item => item.stocked === true
-      );
+      const filteredProducts = productType.filter(item => item.stocked);
       return filteredProducts.map((item, i) => (
         <li key={i}>
           <span>{item.name}</span>
@@ -80,8 +81,9 @@ class ProductTable extends Component {
           <span className="price_col">Price</span>
         </div>
         <div className="product_category">Sporting Goods</div>
-        {!this.props.isChecked && renderRow(SPORTINGGOODS)}
-        {this.props.isChecked && renderRow(SPORTINGGOODS)}
+        {!this.props.isChecked
+          ? renderRow(SPORTINGGOODS)
+          : renderStocked(SPORTINGGOODS)}
         <div className="product_category">Electronics</div>
         {!this.props.isChecked && renderRow(ELECTRONICS)}
         {this.props.isChecked && renderStocked(ELECTRONICS)}
