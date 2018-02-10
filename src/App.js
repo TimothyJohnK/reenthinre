@@ -61,6 +61,18 @@ class ProductTable extends Component {
       ));
     }
 
+    function renderStocked(productType) {
+      const filteredProducts = productType.filter(
+        item => item.stocked === true
+      );
+      return filteredProducts.map((item, i) => (
+        <li key={i}>
+          <span>{item.name}</span>
+          <span className="price_col">{item.price}</span>
+        </li>
+      ));
+    }
+
     return (
       <div>
         <div className="product_category">
@@ -68,9 +80,11 @@ class ProductTable extends Component {
           <span className="price_col">Price</span>
         </div>
         <div className="product_category">Sporting Goods</div>
-        {renderRow(SPORTINGGOODS)}
+        {!this.props.isChecked && renderRow(SPORTINGGOODS)}
+        {this.props.isChecked && renderRow(SPORTINGGOODS)}
         <div className="product_category">Electronics</div>
-        {renderRow(ELECTRONICS)}
+        {!this.props.isChecked && renderRow(ELECTRONICS)}
+        {this.props.isChecked && renderStocked(ELECTRONICS)}
       </div>
     );
   }
