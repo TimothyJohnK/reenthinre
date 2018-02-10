@@ -1,28 +1,31 @@
-.App {
-  text-align: center;
+p {
+    font-size: 0.85em;
+    margin: 0.2em 0 0.8em -0.2em;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.product_table {
+    width: 9.4em;
 }
 
-.App-title {
-  font-size: 1.5em;
+.product_category {
+    padding: 0.3em 0;
+    font-weight: bold;
 }
 
-.App-intro {
-  font-size: large;
+.price_col {
+    position: absolute;
+    left: 5.8em;
+    text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+li {
+    display: flex;
+    padding: 0.3em 0;
+    list-style-type: none;
 }

@@ -41,10 +41,6 @@ const PRODUCTS = [
 ];
 
 class ProductTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { checked: null };
-  }
   render() {
     const SPORTINGGOODS = PRODUCTS.filter(
       item => item.category === 'Sporting Goods'
@@ -57,15 +53,12 @@ class ProductTable extends Component {
     };
 
     function renderRow(productType) {
-      return productType.map(
-        (item, i) =>
-          item.stocked ? (
-            <li key={i}>
-              <span style={!item.stocked ? outOfStock : null}>{item.name}</span>
-              <span className="price_col">{item.price}</span>
-            </li>
-          ) : null
-      );
+      return productType.map((item, i) => (
+        <li key={i}>
+          <span style={!item.stocked ? outOfStock : null}>{item.name}</span>
+          <span className="price_col">{item.price}</span>
+        </li>
+      ));
     }
 
     return (
@@ -91,9 +84,8 @@ class SearchBar extends Component {
         <p>
           <input
             type="checkbox"
-            checked={null}
-            // checked={this.state.value}
-            onClick={() => this.handleClick()}
+            checked={this.props.checked}
+            onClick={this.props.onClick}
           />
           Only show products in stock
         </p>
@@ -105,23 +97,26 @@ class SearchBar extends Component {
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: null };
+    this.state = { checked: false };
   }
-  handleClick() {
-    if (!this.state.value) {
-      return;
-      this.setState({ value: true });
-    }
-    if (this.state.value) {
-      return this.setState({ value: false });
-    }
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      checked: value
+    });
   }
 
   render() {
     return (
       <div className="main">
-        <SearchBar onClick={this.handleClick.bind(this)} />
-        <ProductTable isStocked={this.state.value} />
+        <SearchBar
+          checked={this.state.value}
+          onClick={this.handleInputChange.bind(this)}
+        />
+        <ProductTable isChecked={this.state.value} />
       </div>
     );
   }
