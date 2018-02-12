@@ -40,50 +40,27 @@ const PRODUCTS = [
   }
 ];
 
+const SPORTINGGOODS = PRODUCTS.filter(
+  item => item.category === 'Sporting Goods'
+);
+const ELECTRONICS = PRODUCTS.filter(item => item.category === 'Electronics');
+
+const outOfStock = {
+  color: 'red'
+};
+
 class ProductTable extends Component {
   render() {
-    const SPORTINGGOODS = PRODUCTS.filter(
-      item => item.category === 'Sporting Goods'
-    );
-    const ELECTRONICS = PRODUCTS.filter(
-      item => item.category === 'Electronics'
-    );
-    const outOfStock = {
-      color: 'red'
-    };
-
-    function renderRow(productType) {
+    const renderRow = productType => {
       const filteredProducts = productType.filter(item => item.stocked);
-      // THis SHizz is brokenedendon
-
-      // if (!this.props.isChecked) {
-      //   return filteredProducts.map((item, i) => (
-      //     <li key={i}>
-      //       <span>{item.name}</span>
-      //       <span className="price_col">{item.price}</span>
-      //     </li>
-      //   ));
-      // }
-      return productType.map((item, i) => (
-        <li key={i}>
+      const products = this.props.isChecked ? filteredProducts : productType;
+      return products.map((item, i) => (
+        <li key={item.name}>
           <span style={!item.stocked ? outOfStock : null}>{item.name}</span>
           <span className="price_col">{item.price}</span>
         </li>
       ));
-    }
-
-    // Tried conditionals in both of these functions to no avail.  Would also like
-    // to not repeat the PRODUCTS.filter.  HOwDO.optimize?
-
-    // function renderStocked(productType) {
-    //   const filteredProducts = productType.filter(item => item.stocked);
-    //   return filteredProducts.map((item, i) => (
-    //     <li key={i}>
-    //       <span>{item.name}</span>
-    //       <span className="price_col">{item.price}</span>
-    //     </li>
-    //   ));
-    // }
+    };
 
     return (
       <div>
@@ -139,7 +116,7 @@ export default class App extends Component {
           checked={this.state.value}
           onClick={this.handleInputChange.bind(this)}
         />
-        <ProductTable isChecked={this.state.value} />
+        <ProductTable isChecked={this.state.checked} />
       </div>
     );
   }
